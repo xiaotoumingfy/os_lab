@@ -131,8 +131,9 @@
 #define __NR_setregid	71
 #define __NR_print_val	72
 #define __NR_str2num	73
+
 #define _syscall0(type,name) \
-type name(void) \
+  type name(void) \
 { \
 long __res; \
 __asm__ volatile ("int $0x80" \
@@ -187,8 +188,9 @@ return -1; \
 
 extern int errno;
 
-int print_val(int a);
-int str2num(char *str,int str_len,long *ret);
+int print_val(int a);/*添加*/
+int str2num(char *str,int str_len,long *ret);/*添加*/
+
 int access(const char * filename, mode_t mode);
 int acct(const char * filename);
 int alarm(int sec);
@@ -207,10 +209,11 @@ int execvp(const char * file, char ** argv);
 int execl(const char * pathname, char * arg0, ...);
 int execlp(const char * file, char * arg0, ...);
 int execle(const char * pathname, char * arg0, ...);
-volatile void exit(int status);
-volatile void _exit(int status);
+//volatile void exit(int status);
+void _exit(int status);
+//volatile void _exit(int status);
 int fcntl(int fildes, int cmd, ...);
-int fork(void);
+static int fork(void);
 int getpid(void);
 int getuid(void);
 int geteuid(void);
@@ -224,7 +227,7 @@ int mknod(const char * filename, mode_t mode, dev_t dev);
 int mount(const char * specialfile, const char * dir, int rwflag);
 int nice(int val);
 int open(const char * filename, int flag, ...);
-int pause(void);
+static int pause(void);
 int pipe(int * fildes);
 int read(int fildes, char * buf, off_t count);
 int setpgrp(void);
@@ -235,7 +238,7 @@ void (*signal(int sig, void (*fn)(int)))(int);
 int stat(const char * filename, struct stat * stat_buf);
 int fstat(int fildes, struct stat * stat_buf);
 int stime(time_t * tptr);
-int sync(void);
+static int sync(void);
 time_t time(time_t * tloc);
 time_t times(struct tms * tbuf);
 int ulimit(int cmd, long limit);
